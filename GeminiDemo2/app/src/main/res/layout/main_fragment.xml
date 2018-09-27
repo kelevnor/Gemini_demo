@@ -38,11 +38,11 @@
 
         <com.jjoe64.graphview.GraphView
             android:layout_width="match_parent"
-            android:layout_height="100dip"
+            android:layout_height="120dip"
             android:id="@+id/graph"
             android:layout_marginTop="@dimen/padding_10"
-            android:layout_marginRight="@dimen/padding_gen"
-            android:layout_marginLeft="@dimen/padding_gen"
+            android:layout_marginRight="@dimen/padding_10"
+            android:layout_marginLeft="@dimen/padding_10"
             android:layout_below="@id/tv_coinlabel"/>
 
         <LinearLayout

@@ -109,6 +109,8 @@ public class UtilityHelper {
             }
             LineGraphSeries<DataPoint> series= new LineGraphSeries<>(data);
             FRAGMENT_Main.graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
+            FRAGMENT_Main.graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);// remove horizontal x labels and line
+            FRAGMENT_Main.graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
             FRAGMENT_Main.graph.getViewport().setDrawBorder(true);
 
             FRAGMENT_Main.graph.addSeries(series);
