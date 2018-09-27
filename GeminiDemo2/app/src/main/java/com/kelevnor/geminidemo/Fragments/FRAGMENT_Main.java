@@ -76,6 +76,7 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
         transactionListAdapter = new ADAPTER_TransactionItem(getActivity(), Config.user.getTransactions(), this);
         buddyListAdapter = new ADAPTER_BuddyListItem(getActivity(), Config.buddyList, this);
         rvTransactions.setAdapter(transactionListAdapter);
+        transactionListAdapter.notifyData(Config.user.getTransactions());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rvTransactions.setLayoutManager(mLayoutManager);
         rvTransactions.setItemAnimator(new DefaultItemAnimator());
@@ -92,15 +93,16 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
         switch(view.getId()){
             case R.id.tv_friendslabel:
                 changeSelectedInnerTab(buddyListTv, transactionTv);
-                buddyListAdapter.notifyData(Config.buddyList);
+                Config.buddyList = UtilityHelper.fillBuddyList(Config.user);
                 rvTransactions.setAdapter(buddyListAdapter);
+                buddyListAdapter.notifyData(Config.buddyList);
                 inTransactionsTab = false;
                 break;
 
             case R.id.tv_transactionslabel:
                 changeSelectedInnerTab(transactionTv, buddyListTv);
-                transactionListAdapter.notifyData(Config.user.getTransactions());
                 rvTransactions.setAdapter(transactionListAdapter);
+                transactionListAdapter.notifyData(Config.user.getTransactions());
                 inTransactionsTab = true;
                 break;
         }
