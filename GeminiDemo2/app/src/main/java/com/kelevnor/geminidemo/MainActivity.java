@@ -32,8 +32,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
     ADAPTER_ViewPager tempAdapter;
     TabLayout tabLayout;
-    String json = "";
-    boolean dataChange = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         FRAGMENT_Main FRAGMENTMain = new FRAGMENT_Main();
         FRAGMENT_Transactions transactionFragment = new FRAGMENT_Transactions();
-//        FRAGMENTMain.setArguments(bundle);
-//        transactionFragment.setArguments(bundle);
 
         tempAdapter.addFragment(FRAGMENTMain, "Profile");
         tempAdapter.addFragment(transactionFragment, "Transactions");
@@ -91,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
     private SERVICE_getUserAddress mBoundService;
 
@@ -158,36 +154,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         registerReceiver(onBroadcast, new IntentFilter("user_update"));
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         unregisterReceiver(onBroadcast);
-
     }
 
     public static BroadcastReceiver onBroadcast = new BroadcastReceiver() {
         @Override
         public void onReceive(Context ctxt, Intent i) {
             // do stuff to the UI
-
-                Log.e("Data Change","Data Change");
-                if(FRAGMENT_Main.inTransactionsTab) {
-                    Collections.reverse(Config.user.getTransactions());
-                    FRAGMENT_Main.transactionListAdapter.notifyData(Config.user.getTransactions());
-//                    FRAGMENT_Main.rvTransactions.setAdapter(FRAGMENT_Main.transactionListAdapter);
-                }
-                else{
-                    Config.buddyList = UtilityHelper.fillBuddyList(Config.user);
-                    FRAGMENT_Main.buddyListAdapter.notifyData(Config.buddyList);
-//                    FRAGMENT_Main.rvTransactions.setAdapter(FRAGMENT_Main.buddyListAdapter);
-                }
-                FRAGMENT_Main.test.setText(Config.user.getBalance());
-
-
-
+            Log.e("Data Change","Data Change");
+            if(FRAGMENT_Main.inTransactionsTab) {
+                Collections.reverse(Config.user.getTransactions());
+                FRAGMENT_Main.transactionListAdapter.notifyData(Config.user.getTransactions());
+            }
+            else{
+                Config.buddyList = UtilityHelper.fillBuddyList(Config.user);
+                FRAGMENT_Main.buddyListAdapter.notifyData(Config.buddyList);
+            }
+            FRAGMENT_Main.balance.setText(Config.user.getBalance());
         }
     };
 }

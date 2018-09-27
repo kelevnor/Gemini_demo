@@ -91,6 +91,8 @@ public class SERVICE_getUserAddress extends Service{
 
             Gson datajson = new Gson();
             String userData = datajson.toJson(objList);
+            //Broadcasting the data update to my MainActivity
+            //as a string in intent's bundle
             Intent i = new Intent("user_update");
             i.putExtra("user", userData);
             getApplicationContext().sendBroadcast(i);
@@ -119,10 +121,9 @@ public class SERVICE_getUserAddress extends Service{
     }
 
     //returns the instance of the service
-
-        public class LocalBinder extends Binder {
-            public SERVICE_getUserAddress getService() {
-                return SERVICE_getUserAddress.this;
-            }
+    public class LocalBinder extends Binder {
+        public SERVICE_getUserAddress getService() {
+            return SERVICE_getUserAddress.this;
         }
+    }
 }

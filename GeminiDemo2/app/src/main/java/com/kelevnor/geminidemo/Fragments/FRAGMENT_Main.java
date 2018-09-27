@@ -40,7 +40,7 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
     public static ADAPTER_TransactionItem transactionListAdapter;
     public static ADAPTER_BuddyListItem buddyListAdapter;
     public static Boolean inTransactionsTab = true;
-    public static TextView test;
+    public static TextView balance;
     AddressInfo userInfo = new AddressInfo();
     public FRAGMENT_Main() {
         // Required empty public constructor
@@ -57,14 +57,10 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.main_fragment, container, false);
 
-        test = view.findViewById(R.id.tickerView);
+        balance = view.findViewById(R.id.tickerView);
         rvTransactions = view.findViewById(R.id.rv_transactions);
         transactionTv = view.findViewById(R.id.tv_transactionslabel);
         buddyListTv = view.findViewById(R.id.tv_friendslabel);
-
-//        String json = getArguments().getString("json");
-//        Gson g = new Gson();
-//        userInfo = g.fromJson(json, AddressInfo.class);
 
         // Filling user's buddy list based on transactions
         // they have with different addresses
@@ -82,7 +78,7 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
 
         transactionTv.setOnClickListener(this);
         buddyListTv.setOnClickListener(this);
-        test.setText(Config.user.getBalance());
+        balance.setText(Config.user.getBalance());
 
         return view;
     }
@@ -92,7 +88,6 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
         switch(view.getId()){
             case R.id.tv_friendslabel:
                 changeSelectedInnerTab(buddyListTv, transactionTv);
-
                 buddyListAdapter.notifyData(Config.buddyList);
                 rvTransactions.setAdapter(buddyListAdapter);
                 inTransactionsTab = false;
@@ -107,6 +102,7 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
         }
     }
 
+    //Method to change the inner tab styles
     public void changeSelectedInnerTab(TextView selected, TextView notSelected){
         selected.setTextColor(getActivity().getResources().getColor(R.color.colorPrimary));
         notSelected.setTextColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
