@@ -21,8 +21,10 @@ import com.kelevnor.geminidemo.Adapter.ADAPTER_BuddyListItem.onItemClickListener
 import com.kelevnor.geminidemo.Adapter.ADAPTER_TransactionItem;
 import com.kelevnor.geminidemo.Dialogs.DIALOG_PostAmountToUser;
 import com.kelevnor.geminidemo.Model.address_info.AddressInfo;
+import com.kelevnor.geminidemo.Model.address_info.Result;
 import com.kelevnor.geminidemo.Model.address_info.Transaction;
 import com.kelevnor.geminidemo.R;
+import com.kelevnor.geminidemo.REST.Retrofit_API;
 import com.kelevnor.geminidemo.Utility.Config;
 import com.kelevnor.geminidemo.Utility.UtilityHelper;
 
@@ -34,14 +36,14 @@ import java.util.List;
  * Created by kelevnor on 9/24/18.
  */
 
-public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.onItemClickListener, View.OnClickListener, onItemClickListener, DIALOG_PostAmountToUser.onPostRequest{
+public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.onItemClickListener, View.OnClickListener, onItemClickListener, DIALOG_PostAmountToUser.onPostRequest, Retrofit_API.OnAsyncResult{
     TextView transactionTv, buddyListTv;
     public static android.support.v7.widget.RecyclerView rvTransactions;
     public static ADAPTER_TransactionItem transactionListAdapter;
     public static ADAPTER_BuddyListItem buddyListAdapter;
     public static Boolean inTransactionsTab = true;
     public static TextView balance;
-    AddressInfo userInfo = new AddressInfo();
+    Retrofit_API _api;
     public FRAGMENT_Main() {
         // Required empty public constructor
     }
@@ -61,6 +63,8 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
         rvTransactions = view.findViewById(R.id.rv_transactions);
         transactionTv = view.findViewById(R.id.tv_transactionslabel);
         buddyListTv = view.findViewById(R.id.tv_friendslabel);
+
+        _api = new Retrofit_API(getActivity(), this);
 
         // Filling user's buddy list based on transactions
         // they have with different addresses
@@ -128,16 +132,43 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
     @Override
     public void onPostAmountSuccess(String toAddress) {
         Log.e("Success","Reached Activity");
-        if(inTransactionsTab)
-            transactionListAdapter.notifyDataSetChanged();
-        else{
-            buddyListAdapter.notifyDataSetChanged();
-        }
+        _api.getAddressInfo(Config.userName);
 
     }
 
     @Override
     public void onPostAmountFail(String error) {
         Log.e("Fail","Reached Activity");
+    }
+
+    @Override
+    public void onResultSuccessAddress(int resultCode, AddressInfo objList) {
+
+        Config.user = objList;
+        Collections.reverse(Config.user.getTransactions());
+        balance.setText(Config.user.getBalance());
+
+        Config.buddyList = UtilityHelper.fillBuddyList(Config.user);
+
+    }
+
+    @Override
+    public void onResultSuccessTransactions(int resultCode, List<Transaction> objList) {
+
+    }
+
+    @Override
+    public void onResultSuccessPostAmountToAddress(int resultCode, Result obj) {
+
+    }
+
+    @Override
+    public void onResultFail(int resultCode, String errorMessage) {
+
+    }
+
+    @Override
+    public void onInternetFail(int resultCode, String errorMessage) {
+
     }
 }

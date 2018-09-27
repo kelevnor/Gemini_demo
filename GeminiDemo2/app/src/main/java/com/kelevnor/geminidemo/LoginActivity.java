@@ -15,6 +15,7 @@ import com.kelevnor.geminidemo.Model.address_info.Result;
 import com.kelevnor.geminidemo.Model.address_info.Transaction;
 import com.kelevnor.geminidemo.REST.Retrofit_API;
 import com.kelevnor.geminidemo.Utility.Config;
+import com.kelevnor.geminidemo.Utility.UtilityHelper;
 
 import java.util.Collections;
 import java.util.List;
@@ -65,7 +66,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //        Gson datajson = new Gson();
 //        userData = datajson.toJson(objList);
         Config.user = objList;
-        Config.userTransactionSize = objList.getTransactions().size();
+        Config.buddyList = UtilityHelper.fillBuddyList(Config.user);
         _API.getAllTransactions();
     }
     @Override
