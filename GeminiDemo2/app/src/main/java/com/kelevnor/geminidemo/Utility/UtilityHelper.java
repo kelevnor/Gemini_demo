@@ -1,6 +1,7 @@
 package com.kelevnor.geminidemo.Utility;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -108,6 +109,7 @@ public class UtilityHelper {
 
             }
             LineGraphSeries<DataPoint> series= new LineGraphSeries<>(data);
+            series.setColor(Color.parseColor("#00dcfa"));
             FRAGMENT_Main.graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
             FRAGMENT_Main.graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);// remove horizontal x labels and line
             FRAGMENT_Main.graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
