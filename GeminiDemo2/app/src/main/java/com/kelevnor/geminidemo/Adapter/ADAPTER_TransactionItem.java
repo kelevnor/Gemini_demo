@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.kelevnor.geminidemo.Model.address_info.Transaction;
 import com.kelevnor.geminidemo.R;
 import com.kelevnor.geminidemo.Utility.Config;
+import com.kelevnor.geminidemo.Utility.UtilityHelper;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -92,7 +93,7 @@ public class ADAPTER_TransactionItem extends RecyclerView.Adapter<ADAPTER_Transa
         }
 
 
-        holder.time.setText(parseISO8601Date(searchList.get(position).getTimestamp()));
+        holder.time.setText(UtilityHelper.parseISO8601Date(searchList.get(position).getTimestamp()));
         holder.to.setText(searchList.get(position).getAmount());
         if((searchList.get(position).getFromAddress()!=null&&!searchList.get(position).getFromAddress().isEmpty())&&searchList.get(position).getFromAddress().equals(Config.userName)){
             holder.to.setTextColor(act.getResources().getColor(R.color.colorRed));
@@ -102,24 +103,7 @@ public class ADAPTER_TransactionItem extends RecyclerView.Adapter<ADAPTER_Transa
         }
     }
 
-    private String parseISO8601Date(String isoDate){
 
-        DateTime dt = new DateTime( isoDate) ;
-
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("MMM dd, yyyy - HH:mm:ss");
-        String dtStr = fmt.print(dt);
-
-//        SimpleDateFormat ISO8601DATEFORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault());
-//        String date = isoDate.replaceAll("\\+0([0-9]){1}\\:00", "+0$100");
-//        try {
-//            return ISO8601DATEFORMAT.parse(date).getTime();
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//            return 0L;
-//        }
-
-        return dtStr;
-    }
 
     public void notifyData(List<Transaction> data)
     {

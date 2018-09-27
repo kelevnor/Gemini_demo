@@ -7,6 +7,11 @@ import android.net.NetworkInfo;
 import com.kelevnor.geminidemo.Model.address_info.AddressInfo;
 import com.kelevnor.geminidemo.Model.address_info.Transaction;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,5 +73,23 @@ public class UtilityHelper {
         }
 
         return buddyList;
+    }
+
+    public static String parseISO8601Date(String isoDate){
+
+        DateTime dt = new DateTime( isoDate) ;
+
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("MMM dd, yyyy - HH:mm:ss");
+        String dtStr = fmt.print(dt);
+
+        return dtStr;
+    }
+
+    public static long parseISO8601DateToTimeStamp(String isoDate){
+
+        DateTime dt = new DateTime( isoDate) ;
+        Timestamp ts = new Timestamp(dt.getMillis());
+
+        return ts.getTime();
     }
 }

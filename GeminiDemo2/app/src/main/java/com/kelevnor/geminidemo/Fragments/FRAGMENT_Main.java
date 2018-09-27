@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 
 import com.google.gson.Gson;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 import com.kelevnor.geminidemo.Adapter.ADAPTER_BuddyListItem;
 import com.kelevnor.geminidemo.Adapter.ADAPTER_BuddyListItem.onItemClickListener;
 import com.kelevnor.geminidemo.Adapter.ADAPTER_TransactionItem;
@@ -32,6 +35,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import okhttp3.internal.Util;
+
 /**
  * Created by kelevnor on 9/24/18.
  */
@@ -43,6 +48,7 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
     public static ADAPTER_BuddyListItem buddyListAdapter;
     public static Boolean inTransactionsTab = true;
     public static TextView balance;
+    public static GraphView graph;
     Retrofit_API _api;
     public FRAGMENT_Main() {
         // Required empty public constructor
@@ -63,6 +69,7 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
         rvTransactions = view.findViewById(R.id.rv_transactions);
         transactionTv = view.findViewById(R.id.tv_transactionslabel);
         buddyListTv = view.findViewById(R.id.tv_friendslabel);
+        graph = view.findViewById(R.id.graph);
 
         _api = new Retrofit_API(getActivity(), this);
 
@@ -76,11 +83,10 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
         transactionListAdapter = new ADAPTER_TransactionItem(getActivity(), Config.user.getTransactions(), this);
         buddyListAdapter = new ADAPTER_BuddyListItem(getActivity(), Config.buddyList, this);
         rvTransactions.setAdapter(transactionListAdapter);
-//        transactionListAdapter.notifyData(Config.user.getTransactions());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rvTransactions.setLayoutManager(mLayoutManager);
         rvTransactions.setItemAnimator(new DefaultItemAnimator());
-
+        fillGraph();
         transactionTv.setOnClickListener(this);
         buddyListTv.setOnClickListener(this);
         balance.setText(Config.user.getBalance());
@@ -88,6 +94,37 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
         return view;
     }
 
+    public void fillGraph (){
+        DataPoint[] data = new DataPoint[Config.user.getTransactions().size()];
+        int counter = 0;
+        Double amountTotal = 0.0;
+        Collections.reverse(Config.user.getTransactions());
+        for(Transaction e : Config.user.getTransactions()){
+
+            if(e.getFromAddress()!=null&&!e.getFromAddress().isEmpty()){
+                if(e.getFromAddress().equals(Config.userName)){
+                    amountTotal-=Double.parseDouble(e.getAmount());
+                }
+                else{
+                    amountTotal+=Double.parseDouble(e.getAmount());
+                }
+            }
+            else{
+                amountTotal+=Double.parseDouble(e.getAmount());
+            }
+            data[counter] = new DataPoint(UtilityHelper.parseISO8601DateToTimeStamp(e.getTimestamp()), amountTotal);
+            counter++;
+        }
+        LineGraphSeries<DataPoint> series= new LineGraphSeries<>(data);
+        graph.addSeries(series);
+
+    }
+//             (new DataPoint[] {
+//                    new DataPoint(0, 1),
+//                    new DataPoint(1, 5),
+//                    new DataPoint(2, 3)
+//        graph.addSeries(series);
+//    }
     @Override
     public void onClick(View view) {
         switch(view.getId()){
