@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_outer"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:textAppearanceMedium"
+            android:textStyle="bold"
+            android:paddingTop="@dimen/padding_10"
+            android:paddingLeft="@dimen/padding_gen"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorPrimary"
+            android:text="Name"
+            />
+        <TextView
+            android:id="@+id/tv_taptosend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:textAppearanceSmall"
+            android:textStyle="bold"
+            android:paddingBottom="@dimen/padding_10"
+            android:paddingLeft="@dimen/padding_gen"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorCCC"
+            android:text="Tap to Send"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorCCC"
+            android:layout_below="@id/ll_from"
+            android:layout_marginLeft="@dimen/padding_gen"
+            android:layout_marginTop="@dimen/padding_10"/>
+
+</LinearLayout>

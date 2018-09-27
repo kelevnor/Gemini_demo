@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_outer"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/rl_outer"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_10"
+            android:orientation="vertical">
+
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/atv_amount"
+                android:layout_width="70dp"
+                android:layout_height="60dp"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:visibility="gone"
+                android:textSize="40dp"
+                android:layout_marginLeft="@dimen/padding_gen"
+                autofit:minTextSize="16dp"
+                android:text="1.00"
+                android:maxWidth="70dp"
+                android:gravity="center"
+                />
+            <!--<TextView-->
+                <!--android:id="@+id/tv_balance"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="@dimen/tv_size_36"-->
+                <!--android:textStyle="bold"-->
+                <!--android:gravity="center_vertical|left"-->
+                <!--android:layout_marginLeft="@dimen/padding_gen"-->
+                <!--android:textColor="@color/colorPrimary"-->
+                <!---->
+                <!--/>-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ll_info"
+            android:layout_marginLeft="@dimen/padding_gen"
+            android:layout_marginTop="@dimen/padding_10"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_from"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                style="?android:textAppearanceMedium"
+                android:textStyle="bold"
+                android:gravity="center_vertical|left"
+
+                android:textColor="@color/colorPrimary"
+                android:text="From"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/padding_10">
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/tv_to"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:layout_marginRight="@dimen/padding_gen"
+                android:layout_gravity="right"
+                style="?android:textAppearanceLarge"
+                android:layout_marginLeft="@dimen/padding_gen"
+                autofit:minTextSize="16dp"
+                android:text="1.00"
+                android:maxWidth="70dp"
+                android:gravity="right|center_vertical"
+                />
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                style="?android:textAppearanceSmall"
+                android:textStyle="bold"
+                android:layout_marginRight="@dimen/padding_gen"
+                android:gravity="center_vertical"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="Nov 19, 2018 19:30PM"
+                />
+        </LinearLayout>
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_wind"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:textSize="@dimen/text_m_label"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:layout_marginLeft="20dp"-->
+                    <!--android:textColor="@color/colorText555"-->
+                    <!--android:text="Type:"-->
+                    <!--/>-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_humidity"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_marginRight="20dp"-->
+                    <!--android:textStyle="normal"-->
+                    <!--android:textSize="@dimen/text_m_label"-->
+                    <!--android:text="NA"-->
+                    <!--android:layout_marginLeft="20dp"-->
+                    <!--android:textColor="@color/colorLink"-->
+                    <!--android:gravity="center_vertical"/>-->
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_temperature"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_marginLeft="20dp"-->
+                    <!--android:textStyle="normal"-->
+                    <!--android:textSize="@dimen/text_m_label"-->
+                    <!--android:text="NA"-->
+                    <!--android:textColor="@color/colorLink"-->
+                    <!--android:gravity="center_vertical"/>-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_humidity"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_marginLeft="20dp"-->
+                    <!--android:textStyle="normal"-->
+                    <!--android:textSize="@dimen/text_m_label"-->
+                    <!--android:text="NA"-->
+                    <!--android:textColor="@color/colorLink"-->
+                    <!--android:gravity="center_vertical"/>-->
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorCCC"
+            android:layout_below="@id/ll_to"
+            android:layout_marginLeft="@dimen/padding_gen"
+            android:layout_marginTop="@dimen/padding_10"/>
+
+    </RelativeLayout>
+</LinearLayout>

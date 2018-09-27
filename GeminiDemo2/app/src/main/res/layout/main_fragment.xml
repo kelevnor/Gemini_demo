@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.kelevnor.geminidemo.MainActivity">
+
+        <RelativeLayout
+            android:id="@+id/rl_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tickerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/tv_size_36"
+                android:textStyle="bold"
+                android:paddingTop="@dimen/padding_20"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorPrimary"
+                android:text="0.00"/>
+
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_coinlabel"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/tv_size_14"
+            android:text="JobCoin"
+            android:layout_below="@id/rl_balance"
+            />
+
+        <com.jjoe64.graphview.GraphView
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:id="@+id/graph"
+            android:layout_marginTop="@dimen/padding_10"
+            android:layout_marginRight="@dimen/padding_gen"
+            android:layout_marginLeft="@dimen/padding_gen"
+            android:layout_below="@id/tv_coinlabel"/>
+
+        <LinearLayout
+            android:id="@+id/ll_innertabs"
+            android:layout_width="match_parent"
+
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/graph">
+            <TextView
+                android:id="@+id/tv_transactionslabel"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                style="?android:textAppearanceMedium"
+                android:background="@color/colorCCC"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/padding_10"
+                android:paddingBottom="@dimen/padding_10"
+                android:paddingLeft="@dimen/padding_gen"
+                android:layout_marginTop="@dimen/padding_10"
+                android:textColor="@color/colorPrimary"
+                android:text="Transactions"/>
+
+            <TextView
+                android:id="@+id/tv_friendslabel"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                style="?android:textAppearanceMedium"
+                android:background="@color/colorEEE"
+                android:gravity="right"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/padding_10"
+                android:paddingBottom="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_gen"
+                android:layout_marginTop="@dimen/padding_10"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="Buddy List"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_transactions"
+            android:scrollbars="vertical"
+            android:background="@color/colorWhite"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/ll_innertabs"
+            />
+
+    </RelativeLayout>
+    <!--<android.support.v4.widget.NestedScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--&gt;-->
+    <!--</android.support.v4.widget.NestedScrollView>-->
