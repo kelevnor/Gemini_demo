@@ -15,6 +15,7 @@ import com.kelevnor.geminidemo.Model.address_info.Transaction;
 import com.kelevnor.geminidemo.REST.Retrofit_API;
 import com.kelevnor.geminidemo.Utility.Config;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -87,6 +88,7 @@ public class SERVICE_getUserAddress extends Service{
             //method to check for new transaction on user
 
             Config.user = objList;
+            Collections.reverse(Config.user.getTransactions());
             Config.userTransactionSize = Config.user.getTransactions().size();
 
             Gson datajson = new Gson();

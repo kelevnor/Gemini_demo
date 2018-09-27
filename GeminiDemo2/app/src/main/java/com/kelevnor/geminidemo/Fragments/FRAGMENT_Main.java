@@ -78,8 +78,6 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
         Config.buddyList = UtilityHelper.fillBuddyList(Config.user);
         // Filling graph values
         UtilityHelper.fillGraph();
-        // Showing newest transactions on top, reversing the user transactions list
-        Collections.reverse(Config.user.getTransactions());
 
         transactionListAdapter = new ADAPTER_TransactionItem(getActivity(), Config.user.getTransactions(), this);
         buddyListAdapter = new ADAPTER_BuddyListItem(getActivity(), Config.buddyList, this);
@@ -155,6 +153,7 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
     public void onResultSuccessAddress(int resultCode, AddressInfo objList) {
 
         Config.user = objList;
+        UtilityHelper.fillGraph();
         Collections.reverse(Config.user.getTransactions());
         balance.setText(Config.user.getBalance());
 

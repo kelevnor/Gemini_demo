@@ -168,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
             // do stuff to the UI
             Log.e("Data Change","Data Change");
             if(FRAGMENT_Main.inTransactionsTab) {
-                Collections.reverse(Config.user.getTransactions());
                 FRAGMENT_Main.transactionListAdapter.notifyData(Config.user.getTransactions());
             }
             else{

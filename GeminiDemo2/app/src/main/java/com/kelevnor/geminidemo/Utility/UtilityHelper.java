@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.kelevnor.geminidemo.Fragments.FRAGMENT_Main;
@@ -83,25 +84,38 @@ public class UtilityHelper {
         DataPoint[] data = new DataPoint[Config.user.getTransactions().size()];
         int counter = 0;
         Double amountTotal = 0.0;
-        Collections.reverse(Config.user.getTransactions());
-        for(Transaction e : Config.user.getTransactions()){
+        try{
+//            Collections.reverse(Config.user.getTransactions());
+            if(Config.user!=null&&Config.user.getTransactions().size()>0){
+                for(Transaction e : Config.user.getTransactions()){
 
-            if(e.getFromAddress()!=null&&!e.getFromAddress().isEmpty()){
-                if(e.getFromAddress().equals(Config.userName)){
-                    amountTotal-=Double.parseDouble(e.getAmount());
-                }
-                else{
-                    amountTotal+=Double.parseDouble(e.getAmount());
+                    if(e.getFromAddress()!=null&&!e.getFromAddress().isEmpty()){
+                        if(e.getFromAddress().equals(Config.userName)){
+                            amountTotal-=Double.parseDouble(e.getAmount());
+                        }
+                        else{
+                            amountTotal+=Double.parseDouble(e.getAmount());
+                        }
+                    }
+                    else{
+                        amountTotal+=Double.parseDouble(e.getAmount());
+                    }
+                    data[counter] = new DataPoint(UtilityHelper.parseISO8601DateToTimeStamp(e.getTimestamp()), amountTotal);
+                    counter++;
                 }
             }
-            else{
-                amountTotal+=Double.parseDouble(e.getAmount());
+            else {
+
             }
-            data[counter] = new DataPoint(UtilityHelper.parseISO8601DateToTimeStamp(e.getTimestamp()), amountTotal);
-            counter++;
+            LineGraphSeries<DataPoint> series= new LineGraphSeries<>(data);
+            FRAGMENT_Main.graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
+            FRAGMENT_Main.graph.getViewport().setDrawBorder(true);
+
+            FRAGMENT_Main.graph.addSeries(series);
         }
-        LineGraphSeries<DataPoint> series= new LineGraphSeries<>(data);
-        FRAGMENT_Main.graph.addSeries(series);
+        catch (Exception e){
+
+        }
 
     }
 
