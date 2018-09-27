@@ -4,6 +4,9 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+import com.kelevnor.geminidemo.Fragments.FRAGMENT_Main;
 import com.kelevnor.geminidemo.Model.address_info.AddressInfo;
 import com.kelevnor.geminidemo.Model.address_info.Transaction;
 
@@ -13,6 +16,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -73,6 +77,32 @@ public class UtilityHelper {
         }
 
         return buddyList;
+    }
+
+    public static void fillGraph (){
+        DataPoint[] data = new DataPoint[Config.user.getTransactions().size()];
+        int counter = 0;
+        Double amountTotal = 0.0;
+        Collections.reverse(Config.user.getTransactions());
+        for(Transaction e : Config.user.getTransactions()){
+
+            if(e.getFromAddress()!=null&&!e.getFromAddress().isEmpty()){
+                if(e.getFromAddress().equals(Config.userName)){
+                    amountTotal-=Double.parseDouble(e.getAmount());
+                }
+                else{
+                    amountTotal+=Double.parseDouble(e.getAmount());
+                }
+            }
+            else{
+                amountTotal+=Double.parseDouble(e.getAmount());
+            }
+            data[counter] = new DataPoint(UtilityHelper.parseISO8601DateToTimeStamp(e.getTimestamp()), amountTotal);
+            counter++;
+        }
+        LineGraphSeries<DataPoint> series= new LineGraphSeries<>(data);
+        FRAGMENT_Main.graph.addSeries(series);
+
     }
 
     public static String parseISO8601Date(String isoDate){

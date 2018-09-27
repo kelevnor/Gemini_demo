@@ -76,7 +76,8 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
         // Filling user's buddy list based on transactions
         // they have with different addresses
         Config.buddyList = UtilityHelper.fillBuddyList(Config.user);
-
+        // Filling graph values
+        UtilityHelper.fillGraph();
         // Showing newest transactions on top, reversing the user transactions list
         Collections.reverse(Config.user.getTransactions());
 
@@ -86,7 +87,8 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rvTransactions.setLayoutManager(mLayoutManager);
         rvTransactions.setItemAnimator(new DefaultItemAnimator());
-        fillGraph();
+
+
         transactionTv.setOnClickListener(this);
         buddyListTv.setOnClickListener(this);
         balance.setText(Config.user.getBalance());
@@ -94,37 +96,6 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
         return view;
     }
 
-    public void fillGraph (){
-        DataPoint[] data = new DataPoint[Config.user.getTransactions().size()];
-        int counter = 0;
-        Double amountTotal = 0.0;
-        Collections.reverse(Config.user.getTransactions());
-        for(Transaction e : Config.user.getTransactions()){
-
-            if(e.getFromAddress()!=null&&!e.getFromAddress().isEmpty()){
-                if(e.getFromAddress().equals(Config.userName)){
-                    amountTotal-=Double.parseDouble(e.getAmount());
-                }
-                else{
-                    amountTotal+=Double.parseDouble(e.getAmount());
-                }
-            }
-            else{
-                amountTotal+=Double.parseDouble(e.getAmount());
-            }
-            data[counter] = new DataPoint(UtilityHelper.parseISO8601DateToTimeStamp(e.getTimestamp()), amountTotal);
-            counter++;
-        }
-        LineGraphSeries<DataPoint> series= new LineGraphSeries<>(data);
-        graph.addSeries(series);
-
-    }
-//             (new DataPoint[] {
-//                    new DataPoint(0, 1),
-//                    new DataPoint(1, 5),
-//                    new DataPoint(2, 3)
-//        graph.addSeries(series);
-//    }
     @Override
     public void onClick(View view) {
         switch(view.getId()){
