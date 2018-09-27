@@ -167,6 +167,9 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context ctxt, Intent i) {
             // do stuff to the UI
             Log.e("Data Change","Data Change");
+            UtilityHelper.fillGraph();
+
+            Collections.reverse(Config.user.getTransactions());
 
             if(FRAGMENT_Main.inTransactionsTab) {
                 FRAGMENT_Main.transactionListAdapter.notifyData(Config.user.getTransactions());
@@ -176,8 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 FRAGMENT_Main.buddyListAdapter.notifyData(Config.buddyList);
             }
             FRAGMENT_Main.balance.setText(Config.user.getBalance());
-            Collections.reverse(Config.user.getTransactions());
-            UtilityHelper.fillGraph();
+
 
         }
     };

@@ -26,7 +26,7 @@ public class Config {
     public static int INTERNET_FAIL = 2;
 
     //Update Interval for user data update
-    public static int NOTIFY_UPDATE_INTERVAL = 15000;
+    public static int NOTIFY_UPDATE_INTERVAL = 10000;
 
     //Update Interval to check for updated data for second service
     public static int NOTIFY_UPDATE_INTERVAL_INTERNAL = 5000;

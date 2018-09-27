@@ -88,7 +88,6 @@ public class SERVICE_getUserAddress extends Service{
             //method to check for new transaction on user
 
             Config.user = objList;
-            Collections.reverse(Config.user.getTransactions());
             Config.userTransactionSize = Config.user.getTransactions().size();
 
             Gson datajson = new Gson();
