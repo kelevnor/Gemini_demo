@@ -76,7 +76,7 @@ public class FRAGMENT_Main extends Fragment implements ADAPTER_TransactionItem.o
         transactionListAdapter = new ADAPTER_TransactionItem(getActivity(), Config.user.getTransactions(), this);
         buddyListAdapter = new ADAPTER_BuddyListItem(getActivity(), Config.buddyList, this);
         rvTransactions.setAdapter(transactionListAdapter);
-        transactionListAdapter.notifyData(Config.user.getTransactions());
+//        transactionListAdapter.notifyData(Config.user.getTransactions());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rvTransactions.setLayoutManager(mLayoutManager);
         rvTransactions.setItemAnimator(new DefaultItemAnimator());
